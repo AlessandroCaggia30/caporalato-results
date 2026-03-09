@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Commune-Level Results</title>
+  <style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+       background: #fafafa; color: #222; line-height: 1.6; }
+.container { max-width: 1100px; margin: 0 auto; padding: 2rem 1.5rem; }
+nav { display: flex; gap: 1.5rem; margin-bottom: 2rem; border-bottom: 1px solid #ddd; padding-bottom: 0.75rem; }
+nav a { text-decoration: none; color: #555; font-size: 0.95rem; }
+nav a.active { color: #111; font-weight: 600; border-bottom: 2px solid #111; }
+h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 0.3rem; }
+.subtitle { color: #666; margin-bottom: 2rem; }
+.outcome-section { margin-bottom: 3rem; }
+.outcome-section h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
+.plot-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
+.plot-grid img { width: 100%; border: 1px solid #ddd; border-radius: 4px; background: white; }
+.legend-box { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin-bottom: 2rem; font-size: 0.85rem; }
+.legend-box ul { margin-left: 1.5rem; }
+footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color: #888; font-size: 0.8rem; }
+</style>
+</head>
+<body>
+<div class="container">
+  <nav>
+    <a href="index.html" class="active">Commune Results</a>
+    <a href="province.html">Province Results</a>
+  </nav>
+
+  <h1>Commune-Level Results</h1>
+  <p class="subtitle">Triple DiD: ea_std × fs_std × year | Commune FE + Province×Year FE | 8 specs × up to 8 IV methods</p>
+
+  <div class="legend-box">
+    <strong>Reading the plots:</strong>
+    <ul>
+      <li><span style="color:#2ca02c">●</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
+      <li><span style="color:#ff7f0e">●</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
+      <li><span style="color:#d62728">●</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
+      <li><span style="color:gray">●</span> Gray = No pre-trend test</li>
+      <li>Solid line = Strong instrument (F ≥ 10) or OLS</li>
+      <li>Dashed line = Weak instrument (F &lt; 10)</li>
+      <li>[P] = Pooled post, [D] = Detrended (linear post-trend)</li>
+      <li>S1–S8: Specification ladder (S1=minimal → S8=most demanding)</li>
+    </ul>
+  </div>
+
+<div class="outcome-section"><h3>Deaths total</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/deaths_total_full.png" alt="Deaths total" loading="lazy">
+  <img src="assets/img/commune/deaths_total_avg_method.png" alt="Deaths total" loading="lazy">
+  <img src="assets/img/commune/deaths_total_avg_spec.png" alt="Deaths total" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Deposits</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/deposits_full.png" alt="Deposits" loading="lazy">
+  <img src="assets/img/commune/deposits_avg_method.png" alt="Deposits" loading="lazy">
+  <img src="assets/img/commune/deposits_avg_spec.png" alt="Deposits" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Admin/Temp (N)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_admin_temp_n_full.png" alt="Empl. Admin/Temp (N)" loading="lazy">
+  <img src="assets/img/commune/empl_admin_temp_n_avg_method.png" alt="Empl. Admin/Temp (N)" loading="lazy">
+  <img src="assets/img/commune/empl_admin_temp_n_avg_spec.png" alt="Empl. Admin/Temp (N)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Construction (F)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_construction_f_full.png" alt="Empl. Construction (F)" loading="lazy">
+  <img src="assets/img/commune/empl_construction_f_avg_method.png" alt="Empl. Construction (F)" loading="lazy">
+  <img src="assets/img/commune/empl_construction_f_avg_spec.png" alt="Empl. Construction (F)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Finance (K)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_finance_k_full.png" alt="Empl. Finance (K)" loading="lazy">
+  <img src="assets/img/commune/empl_finance_k_avg_method.png" alt="Empl. Finance (K)" loading="lazy">
+  <img src="assets/img/commune/empl_finance_k_avg_spec.png" alt="Empl. Finance (K)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Health (Q)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_health_q_full.png" alt="Empl. Health (Q)" loading="lazy">
+  <img src="assets/img/commune/empl_health_q_avg_method.png" alt="Empl. Health (Q)" loading="lazy">
+  <img src="assets/img/commune/empl_health_q_avg_spec.png" alt="Empl. Health (Q)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Hospitality (I)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_hospitality_i_full.png" alt="Empl. Hospitality (I)" loading="lazy">
+  <img src="assets/img/commune/empl_hospitality_i_avg_method.png" alt="Empl. Hospitality (I)" loading="lazy">
+  <img src="assets/img/commune/empl_hospitality_i_avg_spec.png" alt="Empl. Hospitality (I)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Manufacturing (C)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_manufacturing_c_full.png" alt="Empl. Manufacturing (C)" loading="lazy">
+  <img src="assets/img/commune/empl_manufacturing_c_avg_method.png" alt="Empl. Manufacturing (C)" loading="lazy">
+  <img src="assets/img/commune/empl_manufacturing_c_avg_spec.png" alt="Empl. Manufacturing (C)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Other Serv (S)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_other_serv_s_full.png" alt="Empl. Other Serv (S)" loading="lazy">
+  <img src="assets/img/commune/empl_other_serv_s_avg_method.png" alt="Empl. Other Serv (S)" loading="lazy">
+  <img src="assets/img/commune/empl_other_serv_s_avg_spec.png" alt="Empl. Other Serv (S)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Professional (M)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_professional_m_full.png" alt="Empl. Professional (M)" loading="lazy">
+  <img src="assets/img/commune/empl_professional_m_avg_method.png" alt="Empl. Professional (M)" loading="lazy">
+  <img src="assets/img/commune/empl_professional_m_avg_spec.png" alt="Empl. Professional (M)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Retail (G)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_retail_g_full.png" alt="Empl. Retail (G)" loading="lazy">
+  <img src="assets/img/commune/empl_retail_g_avg_method.png" alt="Empl. Retail (G)" loading="lazy">
+  <img src="assets/img/commune/empl_retail_g_avg_spec.png" alt="Empl. Retail (G)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. Transport (H)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_transport_h_full.png" alt="Empl. Transport (H)" loading="lazy">
+  <img src="assets/img/commune/empl_transport_h_avg_method.png" alt="Empl. Transport (H)" loading="lazy">
+  <img src="assets/img/commune/empl_transport_h_avg_spec.png" alt="Empl. Transport (H)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Empl. total (B-S)</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/empl_total_b_s_full.png" alt="Empl. total (B-S)" loading="lazy">
+  <img src="assets/img/commune/empl_total_b_s_avg_method.png" alt="Empl. total (B-S)" loading="lazy">
+  <img src="assets/img/commune/empl_total_b_s_avg_spec.png" alt="Empl. total (B-S)" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Foreign agri nations</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/foreign_agri_nations_full.png" alt="Foreign agri nations" loading="lazy">
+  <img src="assets/img/commune/foreign_agri_nations_avg_method.png" alt="Foreign agri nations" loading="lazy">
+  <img src="assets/img/commune/foreign_agri_nations_avg_spec.png" alt="Foreign agri nations" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF income p.c.</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_income_p_c_full.png" alt="IRPEF income p.c." loading="lazy">
+  <img src="assets/img/commune/irpef_income_p_c_avg_method.png" alt="IRPEF income p.c." loading="lazy">
+  <img src="assets/img/commune/irpef_income_p_c_avg_spec.png" alt="IRPEF income p.c." loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF net tax p.c.</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_net_tax_p_c_full.png" alt="IRPEF net tax p.c." loading="lazy">
+  <img src="assets/img/commune/irpef_net_tax_p_c_avg_method.png" alt="IRPEF net tax p.c." loading="lazy">
+  <img src="assets/img/commune/irpef_net_tax_p_c_avg_spec.png" alt="IRPEF net tax p.c." loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF selfempl share</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_selfempl_share_full.png" alt="IRPEF selfempl share" loading="lazy">
+  <img src="assets/img/commune/irpef_selfempl_share_avg_method.png" alt="IRPEF selfempl share" loading="lazy">
+  <img src="assets/img/commune/irpef_selfempl_share_avg_spec.png" alt="IRPEF selfempl share" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF share 0-10k</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_share_0_10k_full.png" alt="IRPEF share 0-10k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_0_10k_avg_method.png" alt="IRPEF share 0-10k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_0_10k_avg_spec.png" alt="IRPEF share 0-10k" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF share 10-15k</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_share_10_15k_full.png" alt="IRPEF share 10-15k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_10_15k_avg_method.png" alt="IRPEF share 10-15k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_10_15k_avg_spec.png" alt="IRPEF share 10-15k" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF share 15-26k</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_share_15_26k_full.png" alt="IRPEF share 15-26k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_15_26k_avg_method.png" alt="IRPEF share 15-26k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_15_26k_avg_spec.png" alt="IRPEF share 15-26k" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF share 26-55k</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_share_26_55k_full.png" alt="IRPEF share 26-55k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_26_55k_avg_method.png" alt="IRPEF share 26-55k" loading="lazy">
+  <img src="assets/img/commune/irpef_share_26_55k_avg_spec.png" alt="IRPEF share 26-55k" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>IRPEF share 55k+</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/irpef_share_55k_full.png" alt="IRPEF share 55k+" loading="lazy">
+  <img src="assets/img/commune/irpef_share_55k_avg_method.png" alt="IRPEF share 55k+" loading="lazy">
+  <img src="assets/img/commune/irpef_share_55k_avg_spec.png" alt="IRPEF share 55k+" loading="lazy">
+</div></div>
+
+<div class="outcome-section"><h3>Income p.c.</h3>
+<div class="plot-grid">
+  <img src="assets/img/commune/income_p_c_full.png" alt="Income p.c." loading="lazy">
+  <img src="assets/img/commune/income_p_c_avg_method.png" alt="Income p.c." loading="lazy">
+  <img src="assets/img/commune/income_p_c_avg_spec.png" alt="Income p.c." loading="lazy">
+</div></div>
+
+
+  <footer>
+    <p>Generated automatically. Results are preliminary &mdash; do not cite.</p>
+  </footer>
+</div>
+</body>
+</html>
