@@ -16,12 +16,34 @@ nav a.active { color: #111; font-weight: 600; border-bottom: 2px solid #111; }
 h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
 h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 0.3rem; }
 .subtitle { color: #666; margin-bottom: 2rem; }
-.outcome-section { margin-bottom: 3rem; }
-.outcome-section h3 { font-size: 1.1rem; margin-bottom: 0.5rem; }
-.plot-grid { display: grid; grid-template-columns: 1fr; gap: 1.5rem; }
-.plot-grid img { width: 100%; border: 1px solid #ddd; border-radius: 4px; background: white; }
-.legend-box { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin-bottom: 2rem; font-size: 0.85rem; }
-.legend-box ul { margin-left: 1.5rem; }
+.outcome-section { margin-bottom: 2rem; border: 1px solid #ddd; border-radius: 6px; background: white; }
+.outcome-header { display: flex; align-items: center; justify-content: space-between;
+                   padding: 0.75rem 1rem; cursor: pointer; user-select: none; }
+.outcome-header:hover { background: #f5f5f5; }
+.outcome-header h3 { font-size: 1rem; margin: 0; }
+.outcome-header .pretrend-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 10px; color: white; }
+.badge-pass { background: #2ca02c; }
+.badge-marginal { background: #ff7f0e; }
+.badge-fail { background: #d62728; }
+.badge-none { background: #999; }
+.outcome-header .arrow { transition: transform 0.2s; font-size: 0.8rem; color: #888; }
+.outcome-header.open .arrow { transform: rotate(90deg); }
+.outcome-body { display: none; padding: 0.5rem 1rem 1rem; }
+.outcome-body.open { display: block; }
+.plot-tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
+.plot-tabs button { padding: 0.3rem 0.8rem; border: 1px solid #ccc; border-radius: 4px;
+                     background: #f9f9f9; cursor: pointer; font-size: 0.8rem; }
+.plot-tabs button.active { background: #333; color: white; border-color: #333; }
+.plot-pane { display: none; }
+.plot-pane.active { display: block; }
+.plot-pane img { width: 100%; border: 1px solid #eee; border-radius: 4px; }
+.info-box { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin-bottom: 2rem; font-size: 0.85rem; }
+.info-box ul { margin-left: 1.5rem; }
+.info-box h4 { margin-bottom: 0.5rem; }
+.spec-table { width: 100%; border-collapse: collapse; margin-bottom: 1.5rem; font-size: 0.85rem; }
+.spec-table th, .spec-table td { text-align: left; padding: 0.4rem 0.75rem; border-bottom: 1px solid #eee; }
+.spec-table th { background: #f5f5f5; font-weight: 600; }
+.spec-table td:first-child { font-weight: 600; white-space: nowrap; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color: #888; font-size: 0.8rem; }
 </style>
 </head>
@@ -35,114 +57,316 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <h1>Province-Level Results</h1>
   <p class="subtitle">Triple DiD: agric_std × migr_std × year | Province×Sector FE + Region×Sector×Year FE</p>
 
-  <div class="legend-box">
-    <strong>Reading the plots:</strong>
+<div class="info-box">
+    <h4>Reading the plots</h4>
     <ul>
       <li><span style="color:#2ca02c">●</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
       <li><span style="color:#ff7f0e">●</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
       <li><span style="color:#d62728">●</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
       <li><span style="color:gray">●</span> Gray = No pre-trend test</li>
-      <li>Solid line = Strong instrument (F ≥ 10) or OLS</li>
-      <li>Dashed line = Weak instrument (F &lt; 10)</li>
-      <li>[P] = Pooled post, [D] = Detrended (linear post-trend)</li>
-      <li>F=X.X shows first-stage F-statistic</li>
+      <li>Solid line = Strong instrument (F &ge; 10) or OLS &nbsp;|&nbsp; Dashed line = Weak instrument (F &lt; 10)</li>
+      <li>[P] = Pooled post &nbsp;|&nbsp; [D] = Detrended (linear post-trend)</li>
     </ul>
   </div>
 
-<div class="outcome-section"><h3>Active firms (Movi)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/active_firms_movi.png" alt="Active firms (Movi)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Employment (agric vs control)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/employment_agric_vs_control.png" alt="Employment (agric vs control)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Firm birth rate</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/firm_birth_rate.png" alt="Firm birth rate" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Firm death rate</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/firm_death_rate.png" alt="Firm death rate" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Firm net rate</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/firm_net_rate.png" alt="Firm net rate" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Foreign pop (agric vs non-agric nations)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations.png" alt="Foreign pop (agric vs non-agric nations)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Foreign pop agric-nations</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/foreign_pop_agric_nations.png" alt="Foreign pop agric-nations" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>GVA (const 2015)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/gva_const_2015.png" alt="GVA (const 2015)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>GVA per worker</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/gva_per_worker.png" alt="GVA per worker" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>INAIL fatal injuries</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/inail_fatal_injuries.png" alt="INAIL fatal injuries" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>INAIL foreign injuries</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/inail_foreign_injuries.png" alt="INAIL foreign injuries" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>INAIL foreign share</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/inail_foreign_share.png" alt="INAIL foreign share" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>INAIL injuries</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/inail_injuries.png" alt="INAIL injuries" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Permits (work vs family/study)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/permits_work_vs_family_study.png" alt="Permits (work vs family/study)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Permits work</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/permits_work.png" alt="Permits work" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Registered firms (Movi)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/registered_firms_movi.png" alt="Registered firms (Movi)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Remittances (agric vs non-agric dest)</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/remittances_agric_vs_non_agric_dest.png" alt="Remittances (agric vs non-agric dest)" loading="lazy">
-</div></div>
-
-<div class="outcome-section"><h3>Remittances agric-dest</h3>
-<div class="plot-grid">
-  <img src="assets/img/province/remittances_agric_dest.png" alt="Remittances agric-dest" loading="lazy">
-</div></div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Active firms (Movi)</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_active_firms_movi_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_active_firms_movi_full"><img src="assets/img/province/active_firms_movi.png" alt="Active firms (Movi) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Employment (agric vs control)</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_employment_agric_vs_control_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_employment_agric_vs_control_full"><img src="assets/img/province/employment_agric_vs_control.png" alt="Employment (agric vs control) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Firm birth rate</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_firm_birth_rate_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_firm_birth_rate_full"><img src="assets/img/province/firm_birth_rate.png" alt="Firm birth rate - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Firm death rate</h3>
+    <div>
+      <span class="pretrend-badge badge-marginal">MARGINAL</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_firm_death_rate_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_firm_death_rate_full"><img src="assets/img/province/firm_death_rate.png" alt="Firm death rate - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Firm net rate</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_firm_net_rate_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_firm_net_rate_full"><img src="assets/img/province/firm_net_rate.png" alt="Firm net rate - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Foreign pop (agric vs non-agric nations)</h3>
+    <div>
+      <span class="pretrend-badge badge-fail">FAIL</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_foreign_pop_agric_vs_non_agric_nations_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_foreign_pop_agric_vs_non_agric_nations_full"><img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations.png" alt="Foreign pop (agric vs non-agric nations) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Foreign pop agric-nations</h3>
+    <div>
+      <span class="pretrend-badge badge-none">N/A</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_foreign_pop_agric_nations_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_foreign_pop_agric_nations_full"><img src="assets/img/province/foreign_pop_agric_nations.png" alt="Foreign pop agric-nations - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>GVA (const 2015)</h3>
+    <div>
+      <span class="pretrend-badge badge-fail">FAIL</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_gva_const_2015_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_gva_const_2015_full"><img src="assets/img/province/gva_const_2015.png" alt="GVA (const 2015) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>GVA per worker</h3>
+    <div>
+      <span class="pretrend-badge badge-marginal">MARGINAL</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_gva_per_worker_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_gva_per_worker_full"><img src="assets/img/province/gva_per_worker.png" alt="GVA per worker - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>INAIL fatal injuries</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_inail_fatal_injuries_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_inail_fatal_injuries_full"><img src="assets/img/province/inail_fatal_injuries.png" alt="INAIL fatal injuries - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>INAIL foreign injuries</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_inail_foreign_injuries_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_inail_foreign_injuries_full"><img src="assets/img/province/inail_foreign_injuries.png" alt="INAIL foreign injuries - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>INAIL foreign share</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_inail_foreign_share_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_inail_foreign_share_full"><img src="assets/img/province/inail_foreign_share.png" alt="INAIL foreign share - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>INAIL injuries</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_inail_injuries_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_inail_injuries_full"><img src="assets/img/province/inail_injuries.png" alt="INAIL injuries - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Permits (work vs family/study)</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_permits_work_vs_family_study_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_permits_work_vs_family_study_full"><img src="assets/img/province/permits_work_vs_family_study.png" alt="Permits (work vs family/study) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Permits work</h3>
+    <div>
+      <span class="pretrend-badge badge-none">N/A</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_permits_work_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_permits_work_full"><img src="assets/img/province/permits_work.png" alt="Permits work - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Registered firms (Movi)</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_registered_firms_movi_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_registered_firms_movi_full"><img src="assets/img/province/registered_firms_movi.png" alt="Registered firms (Movi) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Remittances (agric vs non-agric dest)</h3>
+    <div>
+      <span class="pretrend-badge badge-marginal">MARGINAL</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_remittances_agric_vs_non_agric_dest_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_remittances_agric_vs_non_agric_dest_full"><img src="assets/img/province/remittances_agric_vs_non_agric_dest.png" alt="Remittances (agric vs non-agric dest) - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Remittances agric-dest</h3>
+    <div>
+      <span class="pretrend-badge badge-none">N/A</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-tabs">
+      <button class=" active" data-target="prov_remittances_agric_dest_full">All Methods × Specs</button>
+    </div>
+    <div class="plot-pane active" id="prov_remittances_agric_dest_full"><img src="assets/img/province/remittances_agric_dest.png" alt="Remittances agric-dest - All Methods × Specs" loading="lazy"></div>
+  </div>
+</div>
 
 
   <footer>
     <p>Generated automatically. Results are preliminary &mdash; do not cite.</p>
   </footer>
 </div>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  // Accordion toggle
+  document.querySelectorAll('.outcome-header').forEach(function(header) {
+    header.addEventListener('click', function() {
+      this.classList.toggle('open');
+      var body = this.nextElementSibling;
+      body.classList.toggle('open');
+    });
+  });
+  // Tab switching
+  document.querySelectorAll('.plot-tabs button').forEach(function(btn) {
+    btn.addEventListener('click', function(e) {
+      e.stopPropagation();
+      var parent = this.closest('.outcome-body');
+      parent.querySelectorAll('.plot-tabs button').forEach(function(b) { b.classList.remove('active'); });
+      parent.querySelectorAll('.plot-pane').forEach(function(p) { p.classList.remove('active'); });
+      this.classList.add('active');
+      parent.querySelector('#' + this.dataset.target).classList.add('active');
+    });
+  });
+});
+</script>
 </body>
 </html>
