@@ -58,6 +58,16 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <p class="subtitle">Triple DiD: agric_std × migr_std × year | Province×Sector FE + Region×Sector×Year FE</p>
 
 <div class="info-box">
+    <h4>Province Method Labels</h4>
+    <ul>
+      <li><strong>FWL</strong> = Frisch-Waugh-Lovell partialing (preferred, correct SEs with demeaned data)</li>
+      <li><strong>direct</strong> = Direct 2SLS without FWL (robustness check)</li>
+      <li><strong>M10</strong> = Migration Bartik from 2010 RCS &nbsp;|&nbsp; <strong>M01</strong> = from 2001 Census</li>
+      <li><strong>Double</strong> = Migration + Agricultural Trade Bartik (two instruments)</li>
+      <li><strong>RF</strong> = Reduced Form (Bartik directly on outcome, no 2SLS)</li>
+    </ul>
+  </div>
+<div class="info-box">
     <h4>Reading the plots</h4>
     <ul>
       <li><span style="color:#2ca02c">●</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
@@ -80,8 +90,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_active_firms_movi_full">All Methods × Specs</button>
+      <button class="" data-target="prov_active_firms_movi_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_active_firms_movi_full"><img src="assets/img/province/active_firms_movi.png" alt="Active firms (Movi) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_active_firms_movi_event_study"><img src="assets/img/province/active_firms_movi_event_study.png" alt="Active firms (Movi) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -95,8 +107,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_employment_agric_vs_control_full">All Methods × Specs</button>
+      <button class="" data-target="prov_employment_agric_vs_control_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_employment_agric_vs_control_full"><img src="assets/img/province/employment_agric_vs_control.png" alt="Employment (agric vs control) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_employment_agric_vs_control_event_study"><img src="assets/img/province/employment_agric_vs_control_event_study.png" alt="Employment (agric vs control) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -110,8 +124,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_firm_birth_rate_full">All Methods × Specs</button>
+      <button class="" data-target="prov_firm_birth_rate_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_firm_birth_rate_full"><img src="assets/img/province/firm_birth_rate.png" alt="Firm birth rate - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_firm_birth_rate_event_study"><img src="assets/img/province/firm_birth_rate_event_study.png" alt="Firm birth rate - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -125,8 +141,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_firm_death_rate_full">All Methods × Specs</button>
+      <button class="" data-target="prov_firm_death_rate_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_firm_death_rate_full"><img src="assets/img/province/firm_death_rate.png" alt="Firm death rate - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_firm_death_rate_event_study"><img src="assets/img/province/firm_death_rate_event_study.png" alt="Firm death rate - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -140,8 +158,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_firm_net_rate_full">All Methods × Specs</button>
+      <button class="" data-target="prov_firm_net_rate_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_firm_net_rate_full"><img src="assets/img/province/firm_net_rate.png" alt="Firm net rate - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_firm_net_rate_event_study"><img src="assets/img/province/firm_net_rate_event_study.png" alt="Firm net rate - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -155,8 +175,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_foreign_pop_agric_vs_non_agric_nations_full">All Methods × Specs</button>
+      <button class="" data-target="prov_foreign_pop_agric_vs_non_agric_nations_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_foreign_pop_agric_vs_non_agric_nations_full"><img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations.png" alt="Foreign pop (agric vs non-agric nations) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_foreign_pop_agric_vs_non_agric_nations_event_study"><img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations_event_study.png" alt="Foreign pop (agric vs non-agric nations) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -185,8 +207,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_gva_const_2015_full">All Methods × Specs</button>
+      <button class="" data-target="prov_gva_const_2015_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_gva_const_2015_full"><img src="assets/img/province/gva_const_2015.png" alt="GVA (const 2015) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_gva_const_2015_event_study"><img src="assets/img/province/gva_const_2015_event_study.png" alt="GVA (const 2015) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -200,8 +224,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_gva_per_worker_full">All Methods × Specs</button>
+      <button class="" data-target="prov_gva_per_worker_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_gva_per_worker_full"><img src="assets/img/province/gva_per_worker.png" alt="GVA per worker - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_gva_per_worker_event_study"><img src="assets/img/province/gva_per_worker_event_study.png" alt="GVA per worker - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -215,8 +241,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_inail_fatal_injuries_full">All Methods × Specs</button>
+      <button class="" data-target="prov_inail_fatal_injuries_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_inail_fatal_injuries_full"><img src="assets/img/province/inail_fatal_injuries.png" alt="INAIL fatal injuries - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_inail_fatal_injuries_event_study"><img src="assets/img/province/inail_fatal_injuries_event_study.png" alt="INAIL fatal injuries - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -230,8 +258,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_inail_foreign_injuries_full">All Methods × Specs</button>
+      <button class="" data-target="prov_inail_foreign_injuries_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_inail_foreign_injuries_full"><img src="assets/img/province/inail_foreign_injuries.png" alt="INAIL foreign injuries - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_inail_foreign_injuries_event_study"><img src="assets/img/province/inail_foreign_injuries_event_study.png" alt="INAIL foreign injuries - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -245,8 +275,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_inail_foreign_share_full">All Methods × Specs</button>
+      <button class="" data-target="prov_inail_foreign_share_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_inail_foreign_share_full"><img src="assets/img/province/inail_foreign_share.png" alt="INAIL foreign share - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_inail_foreign_share_event_study"><img src="assets/img/province/inail_foreign_share_event_study.png" alt="INAIL foreign share - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -260,8 +292,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_inail_injuries_full">All Methods × Specs</button>
+      <button class="" data-target="prov_inail_injuries_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_inail_injuries_full"><img src="assets/img/province/inail_injuries.png" alt="INAIL injuries - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_inail_injuries_event_study"><img src="assets/img/province/inail_injuries_event_study.png" alt="INAIL injuries - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -275,8 +309,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_permits_work_vs_family_study_full">All Methods × Specs</button>
+      <button class="" data-target="prov_permits_work_vs_family_study_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_permits_work_vs_family_study_full"><img src="assets/img/province/permits_work_vs_family_study.png" alt="Permits (work vs family/study) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_permits_work_vs_family_study_event_study"><img src="assets/img/province/permits_work_vs_family_study_event_study.png" alt="Permits (work vs family/study) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -305,8 +341,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_registered_firms_movi_full">All Methods × Specs</button>
+      <button class="" data-target="prov_registered_firms_movi_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_registered_firms_movi_full"><img src="assets/img/province/registered_firms_movi.png" alt="Registered firms (Movi) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_registered_firms_movi_event_study"><img src="assets/img/province/registered_firms_movi_event_study.png" alt="Registered firms (Movi) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -320,8 +358,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-body">
     <div class="plot-tabs">
       <button class=" active" data-target="prov_remittances_agric_vs_non_agric_dest_full">All Methods × Specs</button>
+      <button class="" data-target="prov_remittances_agric_vs_non_agric_dest_event_study">IV Event Study</button>
     </div>
     <div class="plot-pane active" id="prov_remittances_agric_vs_non_agric_dest_full"><img src="assets/img/province/remittances_agric_vs_non_agric_dest.png" alt="Remittances (agric vs non-agric dest) - All Methods × Specs" loading="lazy"></div>
+    <div class="plot-pane" id="prov_remittances_agric_vs_non_agric_dest_event_study"><img src="assets/img/province/remittances_agric_vs_non_agric_dest_event_study.png" alt="Remittances (agric vs non-agric dest) - IV Event Study" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
