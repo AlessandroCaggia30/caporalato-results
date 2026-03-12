@@ -55,29 +55,26 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   </nav>
 
   <h1>Commune-Level Results</h1>
-  <p class="subtitle">Triple DiD: ea_std × fs_std × year | Commune FE + Province×Year FE | 8 specs × up to 9 IV methods</p>
+  <p class="subtitle">Triple DiD: ea_std &times; fs_std &times; year | Commune FE + Province&times;Year FE | PLS IV (K=3&ndash;6)</p>
 
 <div class="info-box">
-    <h4>Specification Ladder (S1&ndash;S8)</h4>
+    <h4>PLS Dimension Reduction</h4>
+    <p>Raw granular instruments (10 nationality Bartiks + 13 crop Bartiks = 23 IVs) are reduced via Partial Least Squares (PLS) to K=3 components per family, targeting the relevant endogenous variable. This avoids many-instrument bias while preserving predictive signal.</p>
     <table class="spec-table">
-      <tr><th>Spec</th><th>Name</th><th>Description</th></tr>
-      <tr><td>S1</td><td>Minimal</td><td>Commune FE + Province&times;Year FE + ef_post only</td></tr>
-      <tr><td>S2</td><td>+ Lower-order &times; post</td><td>Adds e_post and f_post (lower-order interaction terms &times; post dummy)</td></tr>
-      <tr><td>S3</td><td>+ Lower-order &times; trend</td><td>Adds e_trend and f_trend (lower-order interactions &times; linear post-trend)</td></tr>
-      <tr><td>S4</td><td>+ Baseline &times; post</td><td>Adds baseline controls &times; post: population, agric. land share, manufacturing share, retail share</td></tr>
-      <tr><td>S5</td><td>+ Baseline &times; trend</td><td>Same baseline controls interacted with linear post-trend</td></tr>
-      <tr><td>S6</td><td>+ Crop &times; post/trend</td><td>Adds commune crop-area shares &times; post and &times; trend (= main specification)</td></tr>
-      <tr><td>S7</td><td>+ Commune trends</td><td>Adds commune-specific linear time trends (most demanding FE)</td></tr>
-      <tr><td>S8</td><td>+ Sector &times; trend</td><td>Adds sector employment shares &times; trend (manufacturing, retail, hospitality, construction, transport)</td></tr>
+      <tr><th>IV Config</th><th>Components</th><th>K</th><th>F-stat</th></tr>
+      <tr><td>M10 PLS</td><td>3 migration PLS (2010 RCS shares)</td><td>3</td><td>&asymp;17</td></tr>
+      <tr><td>M02 PLS</td><td>3 migration PLS (2002 Census shares)</td><td>3</td><td>&asymp;11</td></tr>
+      <tr><td>M02+Agric</td><td>M02 PLS + Agric GVA Bartik</td><td>4</td><td>&asymp;8 (weak)</td></tr>
+      <tr><td>M02+Crop PLS</td><td>M02 PLS + 3 crop PLS</td><td>6</td><td>&asymp;10</td></tr>
     </table>
   </div>
 <div class="info-box">
     <h4>Reading the plots</h4>
     <ul>
-      <li><span style="color:#2ca02c">●</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
-      <li><span style="color:#ff7f0e">●</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
-      <li><span style="color:#d62728">●</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
-      <li><span style="color:gray">●</span> Gray = No pre-trend test</li>
+      <li><span style="color:#2ca02c">&#9679;</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
+      <li><span style="color:#ff7f0e">&#9679;</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
+      <li><span style="color:#d62728">&#9679;</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
+      <li><span style="color:gray">&#9679;</span> Gray = No pre-trend test</li>
       <li>Solid line = Strong instrument (F &ge; 10) or OLS &nbsp;|&nbsp; Dashed line = Weak instrument (F &lt; 10)</li>
       <li>[P] = Pooled post &nbsp;|&nbsp; [D] = Detrended (linear post-trend)</li>
     </ul>
@@ -125,7 +122,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-header">
     <h3>Empl. Admin/Temp (N)</h3>
     <div>
-      <span class="pretrend-badge badge-fail">FAIL</span>
+      <span class="pretrend-badge badge-marginal">MARGINAL</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
@@ -144,7 +141,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-header">
     <h3>Empl. Construction (F)</h3>
     <div>
-      <span class="pretrend-badge badge-marginal">MARGINAL</span>
+      <span class="pretrend-badge badge-pass">PASS</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
@@ -334,7 +331,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-header">
     <h3>Foreign agri nations</h3>
     <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="pretrend-badge badge-fail">FAIL</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
@@ -391,7 +388,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-header">
     <h3>IRPEF selfempl share</h3>
     <div>
-      <span class="pretrend-badge badge-marginal">MARGINAL</span>
+      <span class="pretrend-badge badge-pass">PASS</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
@@ -599,7 +596,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
 
 
   <footer>
-    <p>Generated automatically. Results are preliminary &mdash; do not cite.</p>
+    <p>Updated March 2026. PLS dimension reduction (K=3&ndash;6). Results are preliminary &mdash; do not cite.</p>
   </footer>
 </div>
 <script>
