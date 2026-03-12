@@ -16,7 +16,9 @@ nav a.active { color: #111; font-weight: 600; border-bottom: 2px solid #111; }
 h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
 h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 0.3rem; }
 .subtitle { color: #666; margin-bottom: 2rem; }
-.outcome-section { margin-bottom: 2rem; border: 1px solid #ddd; border-radius: 6px; background: white; }
+.section-heading { font-size: 1.1rem; margin: 2rem 0 0.75rem; color: #444; font-weight: 600;
+                    border-left: 4px solid #333; padding-left: 0.75rem; }
+.outcome-section { margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 6px; background: white; }
 .outcome-header { display: flex; align-items: center; justify-content: space-between;
                    padding: 0.75rem 1rem; cursor: pointer; user-select: none; }
 .outcome-header:hover { background: #f5f5f5; }
@@ -30,12 +32,6 @@ h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px sol
 .outcome-header.open .arrow { transform: rotate(90deg); }
 .outcome-body { display: none; padding: 0.5rem 1rem 1rem; }
 .outcome-body.open { display: block; }
-.plot-tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
-.plot-tabs button { padding: 0.3rem 0.8rem; border: 1px solid #ccc; border-radius: 4px;
-                     background: #f9f9f9; cursor: pointer; font-size: 0.8rem; }
-.plot-tabs button.active { background: #333; color: white; border-color: #333; }
-.plot-pane { display: none; }
-.plot-pane.active { display: block; }
 .plot-pane img { width: 100%; border: 1px solid #eee; border-radius: 4px; }
 .info-box { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin-bottom: 2rem; font-size: 0.85rem; }
 .info-box ul { margin-left: 1.5rem; }
@@ -69,12 +65,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
 <div class="info-box">
     <h4>Reading the plots</h4>
     <ul>
-      <li><span style="color:#2ca02c">●</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
-      <li><span style="color:#ff7f0e">●</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
-      <li><span style="color:#d62728">●</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
-      <li><span style="color:gray">●</span> Gray = No pre-trend test</li>
+      <li><span style="color:#2ca02c">&#9679;</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
+      <li><span style="color:#ff7f0e">&#9679;</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
+      <li><span style="color:#d62728">&#9679;</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
+      <li><span style="color:gray">&#9679;</span> Gray = No pre-trend test</li>
       <li>Solid line = Strong instrument (F &ge; 10) or OLS &nbsp;|&nbsp; Dashed line = Weak instrument (F &lt; 10)</li>
-      <li>[P] = Pooled post &nbsp;|&nbsp; [D] = Detrended (linear post-trend)</li>
     </ul>
   </div>
 
@@ -87,10 +82,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_active_firms_movi_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_active_firms_movi_full"><img src="assets/img/province/active_firms_movi.png" alt="Active firms (Movi) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/active_firms_movi.png" alt="Active firms (Movi)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -102,10 +94,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_employment_agric_vs_control_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_employment_agric_vs_control_full"><img src="assets/img/province/employment_agric_vs_control.png" alt="Employment (agric vs control) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/employment_agric_vs_control.png" alt="Employment (agric vs control)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -117,10 +106,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_firm_birth_rate_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_firm_birth_rate_full"><img src="assets/img/province/firm_birth_rate.png" alt="Firm birth rate - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/firm_birth_rate.png" alt="Firm birth rate" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -132,10 +118,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_firm_death_rate_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_firm_death_rate_full"><img src="assets/img/province/firm_death_rate.png" alt="Firm death rate - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/firm_death_rate.png" alt="Firm death rate" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -147,10 +130,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_firm_net_rate_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_firm_net_rate_full"><img src="assets/img/province/firm_net_rate.png" alt="Firm net rate - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/firm_net_rate.png" alt="Firm net rate" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -162,10 +142,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_foreign_pop_agric_vs_non_agric_nations_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_foreign_pop_agric_vs_non_agric_nations_full"><img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations.png" alt="Foreign pop (agric vs non-agric nations) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations.png" alt="Foreign pop (agric vs non-agric nations)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -177,10 +154,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_gva_const_2015_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_gva_const_2015_full"><img src="assets/img/province/gva_const_2015.png" alt="GVA (const 2015) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/gva_const_2015.png" alt="GVA (const 2015)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -192,10 +166,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_gva_per_worker_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_gva_per_worker_full"><img src="assets/img/province/gva_per_worker.png" alt="GVA per worker - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/gva_per_worker.png" alt="GVA per worker" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -207,10 +178,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_inail_fatal_injuries_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_inail_fatal_injuries_full"><img src="assets/img/province/inail_fatal_injuries.png" alt="INAIL fatal injuries - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/inail_fatal_injuries.png" alt="INAIL fatal injuries" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -222,10 +190,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_inail_foreign_injuries_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_inail_foreign_injuries_full"><img src="assets/img/province/inail_foreign_injuries.png" alt="INAIL foreign injuries - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/inail_foreign_injuries.png" alt="INAIL foreign injuries" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -237,10 +202,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_inail_foreign_share_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_inail_foreign_share_full"><img src="assets/img/province/inail_foreign_share.png" alt="INAIL foreign share - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/inail_foreign_share.png" alt="INAIL foreign share" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -252,10 +214,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_inail_injuries_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_inail_injuries_full"><img src="assets/img/province/inail_injuries.png" alt="INAIL injuries - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/inail_injuries.png" alt="INAIL injuries" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -267,10 +226,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_permits_work_vs_family_study_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_permits_work_vs_family_study_full"><img src="assets/img/province/permits_work_vs_family_study.png" alt="Permits (work vs family/study) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/permits_work_vs_family_study.png" alt="Permits (work vs family/study)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -282,10 +238,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_registered_firms_movi_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_registered_firms_movi_full"><img src="assets/img/province/registered_firms_movi.png" alt="Registered firms (Movi) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/registered_firms_movi.png" alt="Registered firms (Movi)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -297,10 +250,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="prov_remittances_agric_vs_non_agric_dest_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="prov_remittances_agric_vs_non_agric_dest_full"><img src="assets/img/province/remittances_agric_vs_non_agric_dest.png" alt="Remittances (agric vs non-agric dest) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/province/remittances_agric_vs_non_agric_dest.png" alt="Remittances (agric vs non-agric dest)" loading="lazy"></div>
   </div>
 </div>
 
@@ -311,23 +261,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Accordion toggle
   document.querySelectorAll('.outcome-header').forEach(function(header) {
     header.addEventListener('click', function() {
       this.classList.toggle('open');
       var body = this.nextElementSibling;
       body.classList.toggle('open');
-    });
-  });
-  // Tab switching
-  document.querySelectorAll('.plot-tabs button').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var parent = this.closest('.outcome-body');
-      parent.querySelectorAll('.plot-tabs button').forEach(function(b) { b.classList.remove('active'); });
-      parent.querySelectorAll('.plot-pane').forEach(function(p) { p.classList.remove('active'); });
-      this.classList.add('active');
-      parent.querySelector('#' + this.dataset.target).classList.add('active');
     });
   });
 });

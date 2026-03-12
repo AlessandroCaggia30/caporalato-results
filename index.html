@@ -16,7 +16,9 @@ nav a.active { color: #111; font-weight: 600; border-bottom: 2px solid #111; }
 h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
 h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px solid #eee; padding-bottom: 0.3rem; }
 .subtitle { color: #666; margin-bottom: 2rem; }
-.outcome-section { margin-bottom: 2rem; border: 1px solid #ddd; border-radius: 6px; background: white; }
+.section-heading { font-size: 1.1rem; margin: 2rem 0 0.75rem; color: #444; font-weight: 600;
+                    border-left: 4px solid #333; padding-left: 0.75rem; }
+.outcome-section { margin-bottom: 1.5rem; border: 1px solid #ddd; border-radius: 6px; background: white; }
 .outcome-header { display: flex; align-items: center; justify-content: space-between;
                    padding: 0.75rem 1rem; cursor: pointer; user-select: none; }
 .outcome-header:hover { background: #f5f5f5; }
@@ -30,12 +32,6 @@ h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px sol
 .outcome-header.open .arrow { transform: rotate(90deg); }
 .outcome-body { display: none; padding: 0.5rem 1rem 1rem; }
 .outcome-body.open { display: block; }
-.plot-tabs { display: flex; gap: 0.5rem; margin-bottom: 0.75rem; }
-.plot-tabs button { padding: 0.3rem 0.8rem; border: 1px solid #ccc; border-radius: 4px;
-                     background: #f9f9f9; cursor: pointer; font-size: 0.8rem; }
-.plot-tabs button.active { background: #333; color: white; border-color: #333; }
-.plot-pane { display: none; }
-.plot-pane.active { display: block; }
 .plot-pane img { width: 100%; border: 1px solid #eee; border-radius: 4px; }
 .info-box { background: #f5f5f5; border: 1px solid #ddd; border-radius: 4px; padding: 1rem; margin-bottom: 2rem; font-size: 0.85rem; }
 .info-box ul { margin-left: 1.5rem; }
@@ -55,33 +51,46 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   </nav>
 
   <h1>Commune-Level Results</h1>
-  <p class="subtitle">Triple DiD: ea_std × fs_std × year | Commune FE + Province×Year FE | 6 methods × pooled/detrended</p>
+  <p class="subtitle">Triple DiD: ea_std × fs_std × year | Commune FE + Province×Year FE | 5 methods × 8 specs</p>
 
 <div class="info-box">
-    <h4>Estimation Methods (6 total)</h4>
+    <h4>Estimation Methods (5 total)</h4>
     <table class="spec-table">
       <tr><th>#</th><th>Method</th><th>Instruments (K)</th></tr>
       <tr><td>i</td><td>OLS</td><td>&mdash;</td></tr>
       <tr><td>ii</td><td>IV M10</td><td>Aggregated Migration Bartik from 2010 RCS (K=1)</td></tr>
       <tr><td>iii</td><td>IV M02</td><td>Aggregated Migration Bartik from 2002 Census (K=1)</td></tr>
-      <tr><td>iv</td><td>IV Double</td><td>Agricultural GVA Bartik + Aggregated M02 (K=2)</td></tr>
-      <tr><td>v</td><td>IV PLS M02</td><td>PLS-reduced Migration 2002 (K=3)</td></tr>
-      <tr><td>vi</td><td>IV PLS M02 + Crop</td><td>PLS Migration 2002 + PLS Crop Bartik (K=6)</td></tr>
+      <tr><td>iv</td><td>IV PLS M10 + Crop</td><td>PLS Migration 2010 + PLS Crop Bartik (K=6)</td></tr>
+      <tr><td>v</td><td>IV PLS M02 + Crop</td><td>PLS Migration 2002 + PLS Crop Bartik (K=6)</td></tr>
     </table>
-    <p style="margin-top:0.5rem; font-size:0.8rem; color:#666;">PLS = Partial Least Squares supervised dimension reduction. Migration PLS targets foreign share (fs_std); crop PLS targets agricultural employment (ea_std) with within-province demeaning.</p>
+  </div>
+<div class="info-box">
+    <h4>Specification Ladder (S1&ndash;S8)</h4>
+    <table class="spec-table">
+      <tr><th>Spec</th><th>Name</th><th>Controls</th></tr>
+      <tr><td>S1</td><td>Minimal</td><td>Commune FE + Province&times;Year FE + ef_post only</td></tr>
+      <tr><td>S2</td><td>+ Lower-order &times; post</td><td>Adds e_post and f_post</td></tr>
+      <tr><td>S3</td><td>+ Trends</td><td>Adds ef_trend, e_trend, f_trend</td></tr>
+      <tr><td>S4</td><td>+ Baseline &times; post</td><td>Adds pop, agric. land, manuf, retail &times; post</td></tr>
+      <tr><td>S5</td><td>+ Baseline &times; trend</td><td>Same baseline controls &times; trend</td></tr>
+      <tr><td>S6</td><td>+ Crop &times; post/trend</td><td>Adds 13 crop-area shares &times; post/trend</td></tr>
+      <tr><td>S7</td><td>+ Commune trends</td><td>Commune-specific linear time trends</td></tr>
+      <tr><td>S8</td><td>+ Sector &times; trend</td><td>Adds hospitality, construction, transport shares &times; trend</td></tr>
+    </table>
+    <p style="margin-top:0.5rem; font-size:0.8rem; color:#666;">Each row in the forest plot shows one method &times; specification. 5 methods &times; 8 specs = 40 estimates per outcome.</p>
   </div>
 <div class="info-box">
     <h4>Reading the plots</h4>
     <ul>
-      <li><span style="color:#2ca02c">●</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
-      <li><span style="color:#ff7f0e">●</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
-      <li><span style="color:#d62728">●</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
-      <li><span style="color:gray">●</span> Gray = No pre-trend test</li>
+      <li><span style="color:#2ca02c">&#9679;</span> Green = PASS pre-trends (F-test p &gt; 0.10)</li>
+      <li><span style="color:#ff7f0e">&#9679;</span> Orange = MARGINAL (0.05 &lt; p &lt; 0.10)</li>
+      <li><span style="color:#d62728">&#9679;</span> Red = FAIL pre-trends (p &lt; 0.05)</li>
+      <li><span style="color:gray">&#9679;</span> Gray = No pre-trend test</li>
       <li>Solid line = Strong instrument (F &ge; 10) or OLS &nbsp;|&nbsp; Dashed line = Weak instrument (F &lt; 10)</li>
-      <li>[P] = Pooled post &nbsp;|&nbsp; [D] = Detrended (linear post-trend)</li>
     </ul>
   </div>
 
+<div class="section-heading">Headline</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Empl. total (B-S)</h3>
@@ -91,10 +100,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_total_b_s_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_total_b_s_full"><img src="assets/img/commune/empl_total_b_s.png" alt="Empl. total (B-S) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_total_b_s.png" alt="Empl. total (B-S)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -106,12 +112,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_income_p_c_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_income_p_c_full"><img src="assets/img/commune/income_p_c.png" alt="Income p.c. - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/income_p_c.png" alt="Income p.c." loading="lazy"></div>
   </div>
 </div>
+<div class="section-heading">Foreign Workers</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Foreign agri nations</h3>
@@ -121,10 +125,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_agri_nations_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_agri_nations_full"><img src="assets/img/commune/foreign_agri_nations.png" alt="Foreign agri nations - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/foreign_agri_nations.png" alt="Foreign agri nations" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -136,115 +137,20 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_total_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_total_full"><img src="assets/img/commune/foreign_total.png" alt="Foreign total - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/foreign_total.png" alt="Foreign total" loading="lazy"></div>
   </div>
 </div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign Romania</h3>
-    <div>
-      <span class="pretrend-badge badge-fail">FAIL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_romania_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_romania_full"><img src="assets/img/commune/foreign_romania.png" alt="Foreign Romania - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign Morocco</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_morocco_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_morocco_full"><img src="assets/img/commune/foreign_morocco.png" alt="Foreign Morocco - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign India</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_india_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_india_full"><img src="assets/img/commune/foreign_india.png" alt="Foreign India - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign Albania</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_albania_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_albania_full"><img src="assets/img/commune/foreign_albania.png" alt="Foreign Albania - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Agri nation share</h3>
-    <div>
-      <span class="pretrend-badge badge-fail">FAIL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_agri_nation_share_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_agri_nation_share_full"><img src="assets/img/commune/agri_nation_share.png" alt="Agri nation share - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign share</h3>
-    <div>
-      <span class="pretrend-badge badge-fail">FAIL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_share_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_share_full"><img src="assets/img/commune/foreign_share.png" alt="Foreign share - All Methods" loading="lazy"></div>
-  </div>
-</div>
+<div class="section-heading">Sectoral Employment</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Empl. wholesale/ret (G)</h3>
     <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="pretrend-badge badge-marginal">MARGINAL</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_wholesale_ret_g_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_wholesale_ret_g_full"><img src="assets/img/commune/empl_wholesale_ret_g.png" alt="Empl. wholesale/ret (G) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_wholesale_ret_g.png" alt="Empl. wholesale/ret (G)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -256,10 +162,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_transport_h_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_transport_h_full"><img src="assets/img/commune/empl_transport_h.png" alt="Empl. transport (H) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_transport_h.png" alt="Empl. transport (H)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -271,10 +174,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_admin_temp_n_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_admin_temp_n_full"><img src="assets/img/commune/empl_admin_temp_n.png" alt="Empl. admin/temp (N) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_admin_temp_n.png" alt="Empl. admin/temp (N)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -286,10 +186,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_hospitality_i_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_hospitality_i_full"><img src="assets/img/commune/empl_hospitality_i.png" alt="Empl. hospitality (I) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_hospitality_i.png" alt="Empl. hospitality (I)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -301,12 +198,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_construction_f_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_construction_f_full"><img src="assets/img/commune/empl_construction_f.png" alt="Empl. construction (F) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_construction_f.png" alt="Empl. construction (F)" loading="lazy"></div>
   </div>
 </div>
+<div class="section-heading">Financial & Deposits</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Deposits</h3>
@@ -316,12 +211,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_deposits_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_deposits_full"><img src="assets/img/commune/deposits.png" alt="Deposits - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/deposits.png" alt="Deposits" loading="lazy"></div>
   </div>
 </div>
+<div class="section-heading">IRPEF Income</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>IRPEF income p.c.</h3>
@@ -331,10 +224,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_income_p_c_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_income_p_c_full"><img src="assets/img/commune/irpef_income_p_c.png" alt="IRPEF income p.c. - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_income_p_c.png" alt="IRPEF income p.c." loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -346,10 +236,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_low_income_share_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_low_income_share_full"><img src="assets/img/commune/irpef_low_income_share.png" alt="IRPEF low-income share - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_low_income_share.png" alt="IRPEF low-income share" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -361,10 +248,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_empl_inc_worker_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_empl_inc_worker_full"><img src="assets/img/commune/irpef_empl_inc_worker.png" alt="IRPEF empl inc/worker - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_empl_inc_worker.png" alt="IRPEF empl inc/worker" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -376,10 +260,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_taxpayers_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_taxpayers_full"><img src="assets/img/commune/irpef_taxpayers.png" alt="IRPEF taxpayers - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_taxpayers.png" alt="IRPEF taxpayers" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -391,10 +272,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_selfempl_share_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_selfempl_share_full"><img src="assets/img/commune/irpef_selfempl_share.png" alt="IRPEF selfempl share - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_selfempl_share.png" alt="IRPEF selfempl share" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -406,12 +284,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_net_tax_p_c_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_net_tax_p_c_full"><img src="assets/img/commune/irpef_net_tax_p_c.png" alt="IRPEF net tax p.c. - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_net_tax_p_c.png" alt="IRPEF net tax p.c." loading="lazy"></div>
   </div>
 </div>
+<div class="section-heading">IRPEF Brackets</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>IRPEF share 0-10K</h3>
@@ -421,10 +297,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_share_0_10k_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_share_0_10k_full"><img src="assets/img/commune/irpef_share_0_10k.png" alt="IRPEF share 0-10K - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_share_0_10k.png" alt="IRPEF share 0-10K" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -436,10 +309,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_share_10_15k_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_share_10_15k_full"><img src="assets/img/commune/irpef_share_10_15k.png" alt="IRPEF share 10-15K - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_share_10_15k.png" alt="IRPEF share 10-15K" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -451,10 +321,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_share_15_26k_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_share_15_26k_full"><img src="assets/img/commune/irpef_share_15_26k.png" alt="IRPEF share 15-26K - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_share_15_26k.png" alt="IRPEF share 15-26K" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -466,10 +333,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_share_26_55k_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_share_26_55k_full"><img src="assets/img/commune/irpef_share_26_55k.png" alt="IRPEF share 26-55K - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_share_26_55k.png" alt="IRPEF share 26-55K" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -481,57 +345,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_irpef_share_55k_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_irpef_share_55k_full"><img src="assets/img/commune/irpef_share_55k.png" alt="IRPEF share 55K+ - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/irpef_share_55k.png" alt="IRPEF share 55K+" loading="lazy"></div>
   </div>
 </div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign Africa</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_africa_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_africa_full"><img src="assets/img/commune/foreign_africa.png" alt="Foreign Africa - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign Asia</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_asia_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_asia_full"><img src="assets/img/commune/foreign_asia.png" alt="Foreign Asia - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Foreign Europe</h3>
-    <div>
-      <span class="pretrend-badge badge-fail">FAIL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_foreign_europe_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_foreign_europe_full"><img src="assets/img/commune/foreign_europe.png" alt="Foreign Europe - All Methods" loading="lazy"></div>
-  </div>
-</div>
+<div class="section-heading">Mortality</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Deaths total</h3>
@@ -541,72 +358,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_deaths_total_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_deaths_total_full"><img src="assets/img/commune/deaths_total.png" alt="Deaths total - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/deaths_total.png" alt="Deaths total" loading="lazy"></div>
   </div>
 </div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Italian population</h3>
-    <div>
-      <span class="pretrend-badge badge-marginal">MARGINAL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_italian_population_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_italian_population_full"><img src="assets/img/commune/italian_population.png" alt="Italian population - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Total population</h3>
-    <div>
-      <span class="pretrend-badge badge-fail">FAIL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_total_population_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_total_population_full"><img src="assets/img/commune/total_population.png" alt="Total population - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Empl. professional (M)</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_professional_m_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_professional_m_full"><img src="assets/img/commune/empl_professional_m.png" alt="Empl. professional (M) - All Methods" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Empl. health/social (Q)</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_health_social_q_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_health_social_q_full"><img src="assets/img/commune/empl_health_social_q.png" alt="Empl. health/social (Q) - All Methods" loading="lazy"></div>
-  </div>
-</div>
+<div class="section-heading">Social Spending</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Social spending total</h3>
@@ -616,10 +371,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_social_spending_total_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_social_spending_total_full"><img src="assets/img/commune/social_spending_total.png" alt="Social spending total - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/social_spending_total.png" alt="Social spending total" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -631,10 +383,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_social_spend_immigrants_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_social_spend_immigrants_full"><img src="assets/img/commune/social_spend_immigrants.png" alt="Social spend immigrants - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/social_spend_immigrants.png" alt="Social spend immigrants" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -646,10 +395,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_social_spend_poverty_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_social_spend_poverty_full"><img src="assets/img/commune/social_spend_poverty.png" alt="Social spend poverty - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/social_spend_poverty.png" alt="Social spend poverty" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -661,10 +407,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_social_spend_family_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_social_spend_family_full"><img src="assets/img/commune/social_spend_family.png" alt="Social spend family - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/social_spend_family.png" alt="Social spend family" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -676,12 +419,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_social_spend_elderly_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_social_spend_elderly_full"><img src="assets/img/commune/social_spend_elderly.png" alt="Social spend elderly - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/social_spend_elderly.png" alt="Social spend elderly" loading="lazy"></div>
   </div>
 </div>
+<div class="section-heading">Schools</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>School total students</h3>
@@ -691,10 +432,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_school_total_students_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_school_total_students_full"><img src="assets/img/commune/school_total_students.png" alt="School total students - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/school_total_students.png" alt="School total students" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -706,10 +444,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_school_foreign_students_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_school_foreign_students_full"><img src="assets/img/commune/school_foreign_students.png" alt="School foreign students - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/school_foreign_students.png" alt="School foreign students" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -721,10 +456,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_school_foreign_eu_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_school_foreign_eu_full"><img src="assets/img/commune/school_foreign_eu.png" alt="School foreign EU - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/school_foreign_eu.png" alt="School foreign EU" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -736,10 +468,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_school_foreign_non_eu_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_school_foreign_non_eu_full"><img src="assets/img/commune/school_foreign_non_eu.png" alt="School foreign non-EU - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/school_foreign_non_eu.png" alt="School foreign non-EU" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -751,12 +480,10 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_school_foreign_share_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_school_foreign_share_full"><img src="assets/img/commune/school_foreign_share.png" alt="School foreign share - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/school_foreign_share.png" alt="School foreign share" loading="lazy"></div>
   </div>
 </div>
+<div class="section-heading">Road Safety</div>
 <div class="outcome-section">
   <div class="outcome-header">
     <h3>Road accidents</h3>
@@ -766,10 +493,32 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_road_accidents_full">All Methods</button>
+    <div class="plot-pane"><img src="assets/img/commune/road_accidents.png" alt="Road accidents" loading="lazy"></div>
+  </div>
+</div>
+<div class="section-heading">Placebo Sectors</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Empl. professional (M)</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
     </div>
-    <div class="plot-pane active" id="comm_road_accidents_full"><img src="assets/img/commune/road_accidents.png" alt="Road accidents - All Methods" loading="lazy"></div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-pane"><img src="assets/img/commune/empl_professional_m.png" alt="Empl. professional (M)" loading="lazy"></div>
+  </div>
+</div>
+<div class="outcome-section">
+  <div class="outcome-header">
+    <h3>Empl. health/social (Q)</h3>
+    <div>
+      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="arrow">&#9654;</span>
+    </div>
+  </div>
+  <div class="outcome-body">
+    <div class="plot-pane"><img src="assets/img/commune/empl_health_social_q.png" alt="Empl. health/social (Q)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -781,10 +530,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_manufacturing_c_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_manufacturing_c_full"><img src="assets/img/commune/empl_manufacturing_c.png" alt="Empl. manufacturing (C) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_manufacturing_c.png" alt="Empl. manufacturing (C)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -796,10 +542,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
     </div>
   </div>
   <div class="outcome-body">
-    <div class="plot-tabs">
-      <button class=" active" data-target="comm_empl_finance_k_full">All Methods</button>
-    </div>
-    <div class="plot-pane active" id="comm_empl_finance_k_full"><img src="assets/img/commune/empl_finance_k.png" alt="Empl. finance (K) - All Methods" loading="lazy"></div>
+    <div class="plot-pane"><img src="assets/img/commune/empl_finance_k.png" alt="Empl. finance (K)" loading="lazy"></div>
   </div>
 </div>
 
@@ -810,23 +553,11 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
 </div>
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-  // Accordion toggle
   document.querySelectorAll('.outcome-header').forEach(function(header) {
     header.addEventListener('click', function() {
       this.classList.toggle('open');
       var body = this.nextElementSibling;
       body.classList.toggle('open');
-    });
-  });
-  // Tab switching
-  document.querySelectorAll('.plot-tabs button').forEach(function(btn) {
-    btn.addEventListener('click', function(e) {
-      e.stopPropagation();
-      var parent = this.closest('.outcome-body');
-      parent.querySelectorAll('.plot-tabs button').forEach(function(b) { b.classList.remove('active'); });
-      parent.querySelectorAll('.plot-pane').forEach(function(p) { p.classList.remove('active'); });
-      this.classList.add('active');
-      parent.querySelector('#' + this.dataset.target).classList.add('active');
     });
   });
 });
