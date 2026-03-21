@@ -54,13 +54,14 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <p class="subtitle">Triple DiD: agric_std × migr_std × year | Province×Sector FE + Region×Sector×Year FE</p>
 
 <div class="info-box">
-    <h4>Province Method Labels</h4>
-    <ul>
-      <li><strong>M10</strong> = Migration Bartik from 2010 RCS &nbsp;|&nbsp; <strong>M01</strong> = from 2001 Census</li>
-      <li><strong>Double</strong> = Migration + Agricultural Trade Bartik (two instruments)</li>
-      <li><strong>RF</strong> = Reduced Form (Bartik directly on outcome, no 2SLS)</li>
-      <li>[P] = Pooled post &nbsp;|&nbsp; [D] = Detrended (linear post-trend)</li>
-    </ul>
+    <h4>Province Estimation Methods</h4>
+    <table class="spec-table">
+      <tr><th>Method</th><th>Description</th></tr>
+      <tr><td>OLS</td><td>Triple DiD with lower-order interactions</td></tr>
+      <tr><td>IV Reduced Form (BK-18)</td><td>Bartik instrument directly on outcome (no 2SLS)</td></tr>
+      <tr><td>IV&#x2081; (BK-18, F=19)</td><td>2SLS with Migration Bartik (RCS 2002, 18 nationalities)</td></tr>
+      <tr><td>IV&#x2082; (BK-18+Crop, F&#x2248;17)</td><td>2SLS with Migration + Province Crop Bartik</td></tr>
+    </table>
   </div>
 <div class="info-box">
     <h4>Reading the plots</h4>
@@ -135,18 +136,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
 </div>
 <div class="outcome-section">
   <div class="outcome-header">
-    <h3>Foreign pop (agric vs non-agric nations)</h3>
-    <div>
-      <span class="pretrend-badge badge-marginal">MARGINAL</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-pane"><img src="assets/img/province/foreign_pop_agric_vs_non_agric_nations.png" alt="Foreign pop (agric vs non-agric nations)" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
     <h3>GVA (const 2015)</h3>
     <div>
       <span class="pretrend-badge badge-pass">PASS</span>
@@ -197,7 +186,7 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-header">
     <h3>INAIL foreign share</h3>
     <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="pretrend-badge badge-marginal">MARGINAL</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
@@ -209,24 +198,12 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   <div class="outcome-header">
     <h3>INAIL injuries</h3>
     <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
+      <span class="pretrend-badge badge-fail">FAIL</span>
       <span class="arrow">&#9654;</span>
     </div>
   </div>
   <div class="outcome-body">
     <div class="plot-pane"><img src="assets/img/province/inail_injuries.png" alt="INAIL injuries" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Permits (work vs family/study)</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-pane"><img src="assets/img/province/permits_work_vs_family_study.png" alt="Permits (work vs family/study)" loading="lazy"></div>
   </div>
 </div>
 <div class="outcome-section">
@@ -239,18 +216,6 @@ footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color:
   </div>
   <div class="outcome-body">
     <div class="plot-pane"><img src="assets/img/province/registered_firms_movi.png" alt="Registered firms (Movi)" loading="lazy"></div>
-  </div>
-</div>
-<div class="outcome-section">
-  <div class="outcome-header">
-    <h3>Remittances (agric vs non-agric dest)</h3>
-    <div>
-      <span class="pretrend-badge badge-pass">PASS</span>
-      <span class="arrow">&#9654;</span>
-    </div>
-  </div>
-  <div class="outcome-body">
-    <div class="plot-pane"><img src="assets/img/province/remittances_agric_vs_non_agric_dest.png" alt="Remittances (agric vs non-agric dest)" loading="lazy"></div>
   </div>
 </div>
 
