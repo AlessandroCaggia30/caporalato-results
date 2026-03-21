@@ -41,6 +41,25 @@ h2 { font-size: 1.3rem; margin: 2rem 0 1rem; color: #333; border-bottom: 1px sol
 .spec-table th { background: #f5f5f5; font-weight: 600; }
 .spec-table td:first-child { font-weight: 600; white-space: nowrap; }
 footer { margin-top: 3rem; padding-top: 1rem; border-top: 1px solid #eee; color: #888; font-size: 0.8rem; }
+.outcome-card { margin-bottom: 1rem; border: 1px solid #ddd; border-radius: 6px; background: white; overflow: hidden; }
+.outcome-card .outcome-header { display: flex; align-items: center; justify-content: space-between;
+                                 padding: 0.6rem 1rem; background: #f8f9fa; border-bottom: 1px solid #eee; }
+.outcome-card .outcome-header h3 { font-size: 0.95rem; margin: 0; }
+.coef-table { width: 100%; border-collapse: collapse; font-size: 0.85rem; }
+.coef-table th { text-align: left; padding: 0.35rem 0.75rem; background: #f5f5f5; font-weight: 600;
+                 border-bottom: 1px solid #ddd; font-size: 0.8rem; }
+.coef-table td { padding: 0.35rem 0.75rem; border-bottom: 1px solid #f0f0f0; }
+.coef-table .coef { font-family: 'Courier New', monospace; font-weight: 600; }
+.coef-table .se { color: #666; font-size: 0.8rem; }
+.coef-table .pval { color: #888; font-size: 0.8rem; }
+tr.coef-sig .coef { color: #2ca02c; }
+tr.coef-marginal .coef { color: #ff7f0e; }
+tr.coef-null .coef { color: #888; }
+.badge { font-size: 0.7rem; padding: 2px 8px; border-radius: 10px; color: white; }
+.badge-pass { background: #2ca02c; }
+.badge-marginal { background: #ff7f0e; }
+.badge-fail { background: #d62728; }
+.badge-none { background: #999; }
 </style>
 </head>
 <body>
